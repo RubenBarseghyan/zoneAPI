@@ -1,8 +1,11 @@
 import { Request, Response } from "express";
 import Zone from "./zoneModel";
 
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 export const createZone = async (req: Request, res: Response) => {
     try {
+      await sleep(5000);
       const { name, points } = req.body;
       const zone = new Zone({ name, points });
       await zone.save();
@@ -14,6 +17,7 @@ export const createZone = async (req: Request, res: Response) => {
   
   export const deleteZone = async (req: Request, res: Response) => {
     try {
+      await sleep(5000);
       const { id } = req.params;
       await Zone.findByIdAndDelete(id);
       res.status(200).json({ message: "Zone deleted successfully" });
@@ -24,6 +28,7 @@ export const createZone = async (req: Request, res: Response) => {
   
   export const getZones = async (_req: Request, res: Response) => {
     try {
+      await sleep(5000);
       const zones = await Zone.find();
       res.status(200).json(zones);
     } catch (error) {
